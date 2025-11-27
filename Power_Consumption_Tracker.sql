@@ -141,3 +141,61 @@ VALUES
 (14, 14, '2025-03-20', 2100),
 (15, 15, '2025-03-25', 2300);
 
+SELECT * FROM Customer;
+SELECT * FROM Meter;
+SELECT * FROM ElectricityUsage;
+SELECT * FROM Bill;
+SELECT * FROM Payment;
+
+SELECT MeterId,SUM(UsageUnits) as TotalUsage
+FROM ElectricityUsage
+GROUP BY MeterId
+HAVING SUM(UsageUnits)>200;
+
+SELECT c.CustomerId,c.Name ,SUM(b.AmountDue) as TotalUnpaid from Customer c
+JOIN Meter m on m.CustomerId=c.CustomerId
+JOIN Bill b on b.MeterId=m.meterID
+WHERE b.Paid=0
+GROUP BY c.CustomerId,c.Name
+ORDER BY SUM(b.AmountDue) DESC;
+
+SELECT b.BillId,b.BillDate ,b.AmountDue,b.DueDate,
+CASE 
+	WHEN b.paid=1 THEN "Paid"
+    ELSE "Not Paid"
+END AS PaymentStatus
+FROM Bill b
+ORDER BY b.BillDate;
+
+INSERT INTO Customer(CustomerId, Name, Address, PhoneNumber, Email)
+VALUES
+(201, 'Rahul Singh', '10 MG Road, Delhi', '9876543210', 'rahul.singh@example.com'),
+(202, 'Anita Sharma', '22 Park Street, Kolkata', '9123456780', 'anita.sharma@example.com'),
+(203, 'Karan Mehta', '45 Lotus Lane, Pune', '9988776655', 'karan.mehta@example.com');
+
+INSERT INTO Meter(MeterId, CustomerId, InstallationDate, LastReadingDate)
+VALUES
+(301, 201, '2024-01-15', '2025-01-01'),   
+(302, 201, '2023-12-01', '2025-01-01'),   
+(303, 202, '2024-02-10', '2025-01-01'),   
+(304, 203, '2023-11-20', '2025-01-01');   
+
+
+SELECT DISTINCT c.Name ,c.CustomerId FROM Customer c
+JOIN Meter m On m.CustomerId=c.CustomerId
+WHERE m.InstallationDate>'2023-12-31';
+
+SELECT m.MeterId,m.LastReadingDate,SUM(e.UsageUnits) as TotalUsageUnit FROM Meter m
+JOIN ElectricityUsage e on m.MeterId=e.MeterId
+GROUP BY m.MeterId,m.LastReadingDate
+ORDER BY SUM(e.UsageUnits) DESC;
+
+
+
+    
+
+
+
+
+
+
