@@ -14,7 +14,7 @@ public class TaskMenu {
 		while (true) {
 			System.out.println("1.PROPERTY TAX");
 			System.out.println("2.VEHICLE TAX");
-			System.out.println("3. TOATL ");
+			System.out.println("3.TOTAL ");
 			System.out.println("4.EXIT");
 			int choice = sc.nextInt();
 			switch (choice) {
@@ -27,10 +27,12 @@ public class TaskMenu {
 				 vehicleObj.vehicleMenu();;
 				break;
 			case 3:
-				//total = propertyTax + vehicleTax;
-				//System.out.println("Total tax:" + total);
+				TotalTaxCalculation totaltax=new TotalTaxCalculation();
+				totaltax.calculateTotalTax();
+				break;
 			case 4:
 				System.out.println("THANKS VISIT AGAIN");
+				return;
 			default:
 				System.out.println("Invalid choice");
 			}
