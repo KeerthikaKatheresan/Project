@@ -11,13 +11,15 @@ public class VehicleTaxCalculation {
 	private String vehicleRegNo;
 	private String vehicleBrand;
 	private String regex = "^(?!0000)\\d{4}$";
-	private int maxVelocity=0;
-	private int capacity=0;
+	private int maxVelocity = 0;
+	private int capacity = 0;
 	private int vehicleType;
-	private double purchaseCost=0;
-	
-	
-	
+	private double purchaseCost = 0;
+
+	public List<Vehicle> getVehicles() {
+	    return vehicles;
+	}
+
 	public void vehicleMenu() {
 		while (true) {
 			System.out.println("1.ADD VEHICLE DETAILS");
@@ -31,11 +33,11 @@ public class VehicleTaxCalculation {
 				addVehicleDetails();
 				break;
 			case 2:
-				 int result=calculateVehicleTax();
-				 System.out.println(result);
+				calculateVehicleTax();
+
 				break;
 			case 3:
-				// display();
+				display();
 				break;
 			case 4:
 				TaskMenu menu = new TaskMenu();
@@ -57,19 +59,18 @@ public class VehicleTaxCalculation {
 				System.out.println("Enter valid registration number");
 				return;
 			}
-			
+
 			System.out.println("Enter the Brand:");
-			vehicleBrand= sc.next();
+			vehicleBrand = sc.next();
 			System.out.println("ENTER THE Max velocity of the vehicle (kmph):");
-			 maxVelocity = sc.nextInt();
-			 if( maxVelocity<120 || maxVelocity>300)
-			 {
-				 System.out.println("Enter valid velocity");
-					return;
-			 }
-			
+			maxVelocity = sc.nextInt();
+			if (maxVelocity < 120 || maxVelocity > 300) {
+				System.out.println("Enter valid velocity");
+				return;
+			}
+
 			System.out.println("ENTER CAPACITY(NUMBER OF SEATS) OF THE VEHICLE:");
-			 capacity = sc.nextInt();
+			capacity = sc.nextInt();
 			if (capacity <= 0) {
 				System.out.println("Enter value greater than 0");
 				return;
@@ -79,20 +80,20 @@ public class VehicleTaxCalculation {
 			System.out.println("1.PETEROL DRIVEN");
 			System.out.println("2.DIESEL DRIVEN");
 			System.out.println("2.CND/LPG DRIVEN");
-			vehicleType=sc.nextInt();
-			
+			vehicleType = sc.nextInt();
+
 			if (vehicleType != 1 && vehicleType != 2 && vehicleType != 3) {
 				System.out.println("Enter valid Vehicle type");
 				return;
 			}
 			System.out.println("ENTER PURCHASE COST OF THE VEHICLE");
-			purchaseCost=sc.nextDouble();
-			if(purchaseCost < 50000 || purchaseCost > 1000000)
-			{
+			purchaseCost = sc.nextDouble();
+			if (purchaseCost < 50000 || purchaseCost > 1000000) {
 				System.out.println("Enter valid cost");
 				return;
 			}
-			Vehicle vehicleObj = new Vehicle(vehicleRegNo,vehicleBrand,purchaseCost,maxVelocity,capacity,vehicleType);
+			Vehicle vehicleObj = new Vehicle(vehicleRegNo, vehicleBrand, purchaseCost, maxVelocity, capacity,
+					vehicleType);
 			vehicles.add(vehicleObj);
 			System.out.println("Details saved ");
 		} catch (Exception e) {
@@ -100,30 +101,50 @@ public class VehicleTaxCalculation {
 		}
 
 	}
-	
-	private int calculateVehicleTax()
-	{
-		if(vehicles.isEmpty())
-		{
+
+	private void calculateVehicleTax() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter vehicle registration number to calculate the tax:");
+		String regNo = sc.nextLine();
+
+		if (vehicles.isEmpty()) {
 			System.out.println("No vehicle in the list");
-			return 0;
+			return;
 		}
-		for(Vehicle v:vehicles)
-		{
-			if(v.getTypeOfVehicle()==1)
-			{
-				vehicleTax=(int) (v.getMaxVelocity()+v.getCapacity()+(0.10*v.getPurchaseCost()));
-			}
-			else if(v.getTypeOfVehicle()==2)
-			{
-				vehicleTax=(int) (v.getMaxVelocity()+v.getCapacity()+(0.11*v.getPurchaseCost()));
-			}
-			else
-			{
-				vehicleTax=(int) (v.getMaxVelocity()+v.getCapacity()+(0.12*v.getPurchaseCost()));
+
+		for (Vehicle v : vehicles) {
+			if (v.getVehicleRegNo().equalsIgnoreCase(regNo)) {
+				double vehicleTax;
+				if (v.getTypeOfVehicle() == 1) {
+					vehicleTax = v.getMaxVelocity() + v.getCapacity() + (0.10 * v.getPurchaseCost());
+				} else if (v.getTypeOfVehicle() == 2) {
+					vehicleTax = v.getMaxVelocity() + v.getCapacity() + (0.11 * v.getPurchaseCost());
+				} else {
+					vehicleTax = v.getMaxVelocity() + v.getCapacity() + (0.12 * v.getPurchaseCost());
+				}
+
+				// store tax in the object
+				v.setVehicleTax(vehicleTax);
+
+				System.out.println("Tax for vehicle " + regNo + " is: " + vehicleTax);
+				return; // exit after finding and updating the vehicle
 			}
 		}
-		return vehicleTax;
+
+		System.out.println("Vehicle with registration number " + regNo + " not found.");
+	}
+
+	private void display() {
+		if (vehicles.isEmpty()) {
+			System.out.println("No properties to display");
+			return;
+		}
+		System.out.println("VEHICLE REGISTRATION NO" + "BRAND" + "PURCHASE COST" + "MAX VELOCITY" + "GET CAPACITY"
+				+ "TYPE OF VEHICLE" + "TAX ");
+		for (Vehicle v : vehicles) {
+			System.out.println(v.getVehicleRegNo() + v.getBrand() + v.getPurchaseCost() + v.getMaxVelocity()
+					+ v.getCapacity() + v.getTypeOfVehicle() + v.getVehicleTax() + v.getVehicleTax());
+		}
 	}
 
 }
