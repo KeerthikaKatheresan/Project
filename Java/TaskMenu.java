@@ -1,16 +1,18 @@
-package com.mphasis.TAX_CALULATION;
+package main;
 
 import java.util.Scanner;
 
-import com.mphasis.TAX_CALULATION.PropertyOperation;
+import services.PropertyOperation;
+import services.TotalTaxCalculation;
+import services.VehicleOperation;
 
 public class TaskMenu {
 	Scanner sc = new Scanner(System.in);
 
+	private PropertyOperation propertyOperation = new PropertyOperation();
+    private VehicleOperation vehicleOperation = new VehicleOperation();
 	public void showMenu() {
-		double propertyTax = 0;
-		double vehicleTax = 0;
-		double total = 0;
+		
 		while (true) {
 			System.out.println("1.PROPERTY TAX");
 			System.out.println("2.VEHICLE TAX");
@@ -19,15 +21,15 @@ public class TaskMenu {
 			int choice = sc.nextInt();
 			switch (choice) {
 			case 1:
-				PropertyOperation propertyObj=new PropertyOperation();
-				 propertyObj.propertyMenu();
+				PropertyMenu propertyMenu=new PropertyMenu(propertyOperation);
+				propertyMenu.showMenu();
 				break;
 			case 2:
-				VehicleOperation vehicleObj=new VehicleOperation();
-				 vehicleObj.vehicleMenu();;
+				VehicleMenu vehicleMenu=new VehicleMenu(vehicleOperation);
+				vehicleMenu.showMenu();;
 				break;
 			case 3:
-				TotalTaxCalculation totaltax=new TotalTaxCalculation();
+				TotalTaxCalculation totaltax=new TotalTaxCalculation(propertyOperation,vehicleOperation);
 				totaltax.calculateTotalTax();
 				totaltax.display();
 				break;
