@@ -1,4 +1,7 @@
-package com.mphasis.TAX_CALULATION;
+
+package entities;
+
+import enums.VehicleType;
 
 public class Vehicle {
 
