@@ -1,16 +1,17 @@
-package com.mphasis.TAX_CALULATION;
+package services;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import entities.Vehicle;
+import enums.VehicleType;
+import exception.InvalidInputException;
+import interfaces.Taxable;
+import main.TaskMenu;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+
+
 
 public class VehicleOperation implements Taxable {
 	private Scanner sc = new Scanner(System.in);
@@ -56,7 +57,7 @@ public class VehicleOperation implements Taxable {
 		}
 	}
 
-	private void addVehicleDetails() throws InvalidInputException {
+	public void addVehicleDetails() throws InvalidInputException {
 		System.out.println("Enter Vehicle details");
 
 		System.out.println("Enter the Vehicle registration number:");
