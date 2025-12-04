@@ -1,13 +1,13 @@
 package com.mphasis.TAX_CALULATION;
 
 public class TotalTaxCalculation {
-//	Property property=new Property();
-//	Vehicle vehicle=new Vehicle();
+	Property property=new Property();
+	Vehicle vehicle=new Vehicle();
 	double propertyTax=0;
 	double vehicleTax=0;
 	
-	PropertyTaxCalculation propertyCalc = new PropertyTaxCalculation();
-    VehicleTaxCalculation vehicleCalc = new VehicleTaxCalculation();
+	PropertyOperation propertyCalc = new PropertyOperation();
+    VehicleOperation vehicleCalc = new VehicleOperation();
 	public void calculateTotalTax()
 	{
 		for(Property p:propertyCalc.getProperties())
