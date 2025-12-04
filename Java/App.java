@@ -1,4 +1,4 @@
-package com.mphasis.TAX_CALULATION;
+package main;
 
 import java.util.Scanner;
 
