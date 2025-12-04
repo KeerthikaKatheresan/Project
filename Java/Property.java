@@ -1,4 +1,4 @@
-package com.mphasis.TAX_CALULATION;
+package entities;
 
 public class Property {
 	private static int counter = 0;
