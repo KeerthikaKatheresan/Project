@@ -7,7 +7,7 @@ public class Vehicle {
 	private double purchaseCost;
 	private int maxVelocity;
 	private int capacity;
-	private int typeOfVehicle;
+	private VehicleType typeOfVehicle;
 	private double vehicleTax;
 
 	/**
@@ -26,7 +26,7 @@ public class Vehicle {
 	 * @param typeOfVehicle
 	 */
 	public Vehicle(String vehicleRegNo, String brand, double purchaseCost, int maxVelocity, int capacity,
-			int typeOfVehicle) {
+			VehicleType typeOfVehicle) {
 		super();
 		this.vehicleRegNo = vehicleRegNo;
 		this.brand = brand;
@@ -57,7 +57,7 @@ public class Vehicle {
 		return capacity;
 	}
 
-	public int getTypeOfVehicle() {
+	public VehicleType getTypeOfVehicle() {
 		return typeOfVehicle;
 	}
 	
