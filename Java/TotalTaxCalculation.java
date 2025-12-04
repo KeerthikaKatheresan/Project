@@ -1,31 +1,37 @@
-package com.mphasis.TAX_CALULATION;
+package services;
+
+import entities.Property;
+import entities.Vehicle;
 
 public class TotalTaxCalculation {
-	Property property=new Property();
-	Vehicle vehicle=new Vehicle();
-	double propertyTax=0;
-	double vehicleTax=0;
-	
-	PropertyOperation propertyCalc = new PropertyOperation();
-    VehicleOperation vehicleCalc = new VehicleOperation();
-	public void calculateTotalTax()
-	{
-		for(Property p:propertyCalc.getProperties())
-		{
-			propertyTax+=p.getPropertyTax();
+	private PropertyOperation propertyCalc;
+	private VehicleOperation vehicleCalc;
+
+	double propertyTax;
+	double vehicleTax;
+
+	public TotalTaxCalculation(PropertyOperation propertyCalc, VehicleOperation vehicleCalc) {
+		super();
+		this.propertyCalc = propertyCalc;
+		this.vehicleCalc = vehicleCalc;
+
+	}
+
+	public void calculateTotalTax() {
+		propertyTax = 0;
+		vehicleTax = 0;
+		for (Property p : propertyCalc.getProperties()) {
+			propertyTax += p.getPropertyTax();
 		}
-		for(Vehicle v:vehicleCalc.getVehicles())
-		{
-			vehicleTax+=v.getVehicleTax();
+		for (Vehicle v : vehicleCalc.getVehicles()) {
+			vehicleTax += v.getVehicleTax();
 		}
 	}
-	
-	public void display()
-	{
-		System.out.println("Total property tax:"+propertyTax);
-		System.out.println("Total vehicle tax:"+vehicleTax);
-		System.out.println("Total tax:"+(propertyTax+vehicleTax));
+
+	public void display() {
+		System.out.println("Total property tax:" + propertyTax);
+		System.out.println("Total vehicle tax:" + vehicleTax);
+		System.out.println("Total tax:" + (propertyTax + vehicleTax));
 	}
-	
 
 }
