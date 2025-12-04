@@ -1,6 +1,6 @@
-package com.mphasis.TAX_CALULATION;
+package exception;
 
-import java.util.Scanner;
+
 
 public class InvalidInputException extends Exception {
 
