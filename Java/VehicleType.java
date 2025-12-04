@@ -1,4 +1,4 @@
-package com.mphasis.TAX_CALULATION;
+package enums;
 
 public enum VehicleType {
     PETROL_DRIVEN,
