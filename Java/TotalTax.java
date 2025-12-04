@@ -1,4 +1,5 @@
-package com.mphasis.TAX_CALULATION;
+
+package entities;
 
 public class TotalTax {
 
