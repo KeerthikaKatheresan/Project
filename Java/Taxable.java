@@ -1,4 +1,4 @@
-package com.mphasis.TAX_CALULATION;
+package interfaces;
 
 public interface Taxable {
 	
