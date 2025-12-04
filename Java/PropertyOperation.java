@@ -1,63 +1,22 @@
-package com.mphasis.TAX_CALULATION;
+package services;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+
+import entities.Property;
+import exception.InvalidInputException;
+import interfaces.Taxable;
 
 public class PropertyOperation implements Taxable {
 	private Scanner sc = new Scanner(System.in);
 	private List<Property> properties = new ArrayList<>();
-	private int propertyTax;
-
+	
 	public List<Property> getProperties() {
 		return properties;
 	}
 
-	public void propertyMenu() {
-	    int choice = 0; // initialize
-
-	    do {
-	        System.out.println("1.ADD PROPERTY DETAILS");
-	        System.out.println("2.CALCULATE THE PROPERTY TAX");
-	        System.out.println("3.DISPLAY ALL PROPERTIES");
-	        System.out.println("4.BACK TO MAIN MENU");
-
-	        try {
-	            choice = sc.nextInt();
-	            switch (choice) {
-	                case 1:
-	                    addPropertyDetails();
-	                    break;
-	                case 2:
-	                    calculateTax();
-	                    break;
-	                case 3:
-	                    display();
-	                    break;
-	                case 4:
-	                    TaskMenu menu = new TaskMenu();
-	                    menu.showMenu();
-	                    break; // exit loop after going back
-	                default:
-	                	System.out.println("Enter valid number");
-	                	break;
-	                    //throw new InvalidInputException("Invalid menu choice. Please enter 1–4.");
-	            }
-	        }
-	            catch (InvalidInputException e) {
-		            // Handles wrong menu numbers like 7
-		            System.out.println("Error: " + e.getMessage());
-		            choice = -1;   // reset choice so loop continues
-		        }
-	         
-
-	    } while (choice != 4); // loop until user chooses "Back to Main Menu"
-	}
-
-
-
-	private void addPropertyDetails() throws InvalidInputException {
+	public void addPropertyDetails() throws InvalidInputException {
 		System.out.println("Enter property details");
 
 		try {
