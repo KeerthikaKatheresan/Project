@@ -6,7 +6,7 @@ public class App {
     public static void main(String[] args) {
         // Welcome message
         System.out.println("+------------------------------------+");
-        System.out.println("|  WELCOME TO TAX CALCULATION APP	|");
+        System.out.println("|  	WELCOME TO TAX CALCULATION APP	 |");
         System.out.println("+------------------------------------+");
         System.out.println("Please Login to Continue");
 
