@@ -2,59 +2,55 @@ package main;
 
 import java.util.Scanner;
 
+import entities.Property;
+import services.PropertyOperation;
+import services.TotalTaxCalculation;
 import services.VehicleOperation;
 
-public class VehicleMenu {
 
-    private Scanner sc = new Scanner(System.in);
-    private VehicleOperation vehicleOperation;
-    
-    
 
-    public VehicleMenu(VehicleOperation vehicleOperation) {
-		super();
-		this.vehicleOperation = vehicleOperation;
+public class TaskMenu {
+	Scanner sc = new Scanner(System.in);
+
+	//Property property =new Property();
+	PropertyOperation propertyOperation=new PropertyOperation();
+	VehicleOperation vehicleOperation=new VehicleOperation();
+	public void showMenu() {
+	    while (true) {
+	        System.out.println("1.PROPERTY TAX");
+	        System.out.println("2.VEHICLE TAX");
+	        System.out.println("3.TOTAL");
+	        System.out.println("4.EXIT");
+
+	        try {
+	            int choice = sc.nextInt();
+	            switch (choice) {
+	                case 1:
+	                    PropertyMenu propertyMenu = new PropertyMenu(propertyOperation);
+	                    propertyMenu.showMenu();
+	                    break;
+	                case 2:
+	                    VehicleMenu vehicleMenu = new VehicleMenu(vehicleOperation);
+	                    vehicleMenu.showMenu();
+	                    break;
+	                case 3:
+	                    TotalTaxCalculation totaltax = new TotalTaxCalculation(propertyOperation, vehicleOperation);
+	                    totaltax.calculateTotalTax();
+	                    totaltax.display();
+	                    break;
+	                case 4:
+	                    System.out.println("THANKS VISIT AGAIN");
+	                    return;
+	                default:
+	                    System.out.println("Please enter a valid option (1–4)");
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Invalid input. Kindly enter a number");
+	            sc.nextLine(); // clear the invalid token so loop can continue
+	        }
+	    }
+	}
+
 	}
 
 
-
-	public void showMenu() {
-
-        while (true) {
-            System.out.println("\n--- VEHICLE MENU ---");
-            System.out.println("1. ADD VEHICLE DETAILS");
-            System.out.println("2. CALCULATE VEHICLE TAX");
-            System.out.println("3. DISPLAY ALL VEHICLES");
-            System.out.println("4. BACK TO MAIN MENU");
-
-            try {
-                int choice = sc.nextInt();
-
-                switch (choice) {
-                    case 1:
-                        vehicleOperation.addVehicleDetails(); // must be PUBLIC
-                        break;
-
-                    case 2:
-                        vehicleOperation.calculateTax();
-                        break;
-
-                    case 3:
-                        vehicleOperation.display();
-                        break;
-
-                    case 4:
-
-                        return; 
-
-                    default:
-                        System.out.println("Please enter a valid option (1–4)");
-                }
-
-            } catch (Exception e) {
-                System.out.println("Invalid input. Please enter a number.");
-                sc.nextLine(); // clear buffer
-            }
-        }
-    }
-}
