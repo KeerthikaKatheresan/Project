@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import entities.Vehicle;
 import enums.VehicleType;
-import exception.InvalidInputException;
+import exceptions.InvalidInputException;
 import interfaces.Taxable;
 import main.TaskMenu;
 
