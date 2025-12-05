@@ -1,4 +1,3 @@
-
 package entities;
 
 import enums.VehicleType;
