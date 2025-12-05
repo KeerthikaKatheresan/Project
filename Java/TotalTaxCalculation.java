@@ -2,6 +2,7 @@ package services;
 
 import entities.Property;
 import entities.Vehicle;
+import exceptions.InvalidInputException;
 
 public class TotalTaxCalculation {
 	private PropertyOperation propertyCalc;
