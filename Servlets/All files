@@ -1,0 +1,679 @@
+Folder PATH listing for volume Windows-SSD
+Volume serial number is 16B1-5F99
+C:.
+│   .classpath
+│   .project
+│   pom.xml
+│   projectStructure.txt
+│
+├───.mvn
+│       jvm.config
+│       maven.config
+│
+├───.settings
+│       .jsdtscope
+│       org.eclipse.core.resources.prefs
+│       org.eclipse.jdt.core.prefs
+│       org.eclipse.m2e.core.prefs
+│       org.eclipse.wst.common.component
+│       org.eclipse.wst.common.project.facet.core.xml
+│       org.eclipse.wst.jsdt.ui.superType.container
+│       org.eclipse.wst.jsdt.ui.superType.name
+│       org.eclipse.wst.validation.prefs
+│
+├───src
+│   └───main
+│       ├───java
+│       │   └───com
+│       │       └───quizportal
+│       │           │   package-info.java
+│       │           │
+│       │           ├───dao
+│       │           │       package-info.java
+│       │           │
+│       │           ├───model
+│       │           │       package-info.java
+│       │           │
+│       │           ├───servlet
+│       │           │       createQuizServlet.java
+│       │           │       LoginServlet.java
+│       │           │       package-info.java
+│       │           │       RegisterServlet.java
+│       │           │
+│       │           └───util
+│       │                   DBConnection.java
+│       │                   package-info.java
+│       │
+│       └───webapp
+│           │   index.jsp
+│           │
+│           ├───views
+│           │       adminDashboard.jsp
+│           │       attemptQuiz.jsp
+│           │       createQuiz.jsp
+│           │       dashboard.jsp
+│           │       login.jsp
+│           │       quizList.jsp
+│           │       register.jsp
+│           │       result.jsp
+│           │
+│           └───WEB-INF
+│                   web.xml
+│
+└───target
+    │   QuizPortal.war
+    │
+    ├───classes
+    │   └───com
+    │       └───quizportal
+    │           │   package-info.class
+    │           │
+    │           ├───dao
+    │           │       package-info.class
+    │           │
+    │           ├───model
+    │           │       package-info.class
+    │           │
+    │           ├───servlet
+    │           │       createQuizServlet.class
+    │           │       LoginServlet.class
+    │           │       package-info.class
+    │           │       RegisterServlet.class
+    │           │
+    │           └───util
+    │                   DBConnection.class
+    │                   package-info.class
+    │
+    ├───generated-sources
+    │   └───annotations
+    ├───m2e-wtp
+    │   └───web-resources
+    │       └───META-INF
+    │           │   MANIFEST.MF
+    │           │
+    │           └───maven
+    │               └───com.quizportal
+    │                   └───QuizPortal
+    │                           pom.properties
+    │                           pom.xml
+    │
+    ├───maven-archiver
+    │       pom.properties
+    │
+    ├───maven-status
+    │   └───maven-compiler-plugin
+    │       └───compile
+    │           └───default-compile
+    │                   createdFiles.lst
+    │                   inputFiles.lst
+    │
+    └───QuizPortal
+        │   index.jsp
+        │
+        ├───META-INF
+        ├───views
+        │       attemptQuiz.jsp
+        │       dashboard.jsp
+        │       login.jsp
+        │       quizList.jsp
+        │       register.jsp
+        │       result.jsp
+        │
+        └───WEB-INF
+            │   web.xml
+            │
+            ├───classes
+            │   └───com
+            │       └───quizportal
+            │           │   package-info.class
+            │           │
+            │           ├───dao
+            │           │       package-info.class
+            │           │
+            │           ├───model
+            │           │       package-info.class
+            │           │
+            │           ├───servlet
+            │           │       LoginServlet.class
+            │           │       package-info.class
+            │           │       RegisterServlet.class
+            │           │
+            │           └───util
+            │                   DBConnection.class
+            │                   package-info.class
+            │
+            └───lib
+                    mysql-connector-j-8.0.33.jar
+                    protobuf-java-3.21.9.jar
+------------------------------------------------------------------------------------------------------------------------
+createQuizServlet.java
+
+package com.quizportal.servlet;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.quizportal.util.DBConnection;
+
+/**
+ * Servlet implementation class createQuizServlet
+ */
+@WebServlet("/createQuizServlet")
+public class createQuizServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+   
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String quizName = request.getParameter("quizName");
+        String[] questionIds = request.getParameterValues("questionIds");
+
+        try (Connection con = DBConnection.getConnection()) {
+
+            // 1. Insert into quiz table
+            PreparedStatement ps = con.prepareStatement(
+                "INSERT INTO quiz (quiz_name) VALUES (?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            ps.setString(1, quizName);
+            ps.executeUpdate();
+
+            // Get generated quiz_id
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            int quizId = rs.getInt(1);
+
+            // 2. Insert into quiz_questions table
+            PreparedStatement ps2 = con.prepareStatement(
+                "INSERT INTO quiz_questions (quiz_id, question_id) VALUES (?, ?)");
+
+            for (String qid : questionIds) {
+                ps2.setInt(1, quizId);
+                ps2.setInt(2, Integer.parseInt(qid));
+                ps2.addBatch();
+            }
+            ps2.executeBatch();
+
+            response.sendRedirect("views/adminDashboard.jsp");
+
+        } catch (Exception e) {
+            response.getWriter().println("Error: " + e.getMessage());
+        }
+	}
+
+}
+---------------------------------------------------------------------------------------------
+LoginServlet.java
+
+package com.quizportal.servlet;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+import com.quizportal.util.DBConnection;
+
+/**
+ * Servlet implementation class LoginServlet
+ */
+@WebServlet("/LoginServlet")
+public class LoginServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String uname = request.getParameter("username");
+		String password = request.getParameter("password");
+		try (Connection con = DBConnection.getConnection()) {
+			String sql = "SELECT * FROM users WHERE username=? AND password=?";
+			PreparedStatement ps = con.prepareStatement(sql);
+			ps.setString(1, uname);
+			ps.setString(2, password);
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				String role = rs.getString("role");
+				request.getSession().setAttribute("user", rs.getString("username"));
+				request.getSession().setAttribute("role", rs.getString("role"));
+				if ("admin".equals(role)) {
+					response.sendRedirect("views/adminDashboard.jsp");
+				} else {
+					response.sendRedirect("views/dashboard.jsp");
+				}
+
+			} else {
+				response.getWriter().println("Invalid login!");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------
+RegisterServlet.java
+
+package com.quizportal.servlet;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import com.quizportal.util.DBConnection;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class RegisterServlet
+ */
+@WebServlet("/RegisterServlet")
+public class RegisterServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+    public RegisterServlet() {
+        super();
+        
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String uname = request.getParameter("username");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        try (Connection con = DBConnection.getConnection()) {
+            String sql = "INSERT INTO users(username,password,email) VALUES (?,?,?)";
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, uname);
+            ps.setString(2, password);
+            ps.setString(3, email);
+
+            ps.executeUpdate();
+            response.sendRedirect("views/login.jsp");
+
+
+        } catch (Exception e) {
+            response.getWriter().println("Error: " + e.getMessage());
+        }
+		
+	}
+
+}
+--------------------------------------------------------------------------------------------------------------------
+DBConnection.java:
+
+package com.quizportal.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DBConnection {
+
+    private static final String URL = "jdbc:mysql://localhost:3306/quizPortal";
+    private static final String USER = "root";
+    private static final String PASS = "Keerthika_05";
+
+    public static Connection getConnection() {
+        Connection con = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = DriverManager.getConnection(URL, USER, PASS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return con;
+    }
+}
+---------------------------------------------------------------------------------------------------------------------------
+adminDashboard.jsp:
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Welcome to admin dashboard</h1>
+<a href="../views/createQuiz.jsp">Create New Quiz</a>
+
+</body>
+</html>
+-------------------------------------------
+attemptQuiz.jsp:
+<%@ page import="java.sql.*, com.quizportal.util.DBConnection" %>
+<%
+int quizId = Integer.parseInt(request.getParameter("quizId"));
+
+Connection con = DBConnection.getConnection();
+PreparedStatement ps = con.prepareStatement(
+    "SELECT q.* FROM questions q JOIN quiz_questions qq ON q.id = qq.question_id WHERE qq.quiz_id = ?");
+ps.setInt(1, quizId);
+
+ResultSet rs = ps.executeQuery();
+%>
+
+<form action="../SubmitQuizServlet" method="post">
+<input type="hidden" name="quizId" value="<%= quizId %>">
+
+<% while(rs.next()) { %>
+    <p><%= rs.getString("question_text") %></p>
+    <input type="radio" name="q<%= rs.getInt("id") %>" value="A"><%= rs.getString("option_a") %><br>
+    <input type="radio" name="q<%= rs.getInt("id") %>" value="B"><%= rs.getString("option_b") %><br>
+    <input type="radio" name="q<%= rs.getInt("id") %>" value="C"><%= rs.getString("option_c") %><br>
+    <input type="radio" name="q<%= rs.getInt("id") %>" value="D"><%= rs.getString("option_d") %><br>
+<% } %>
+
+<button type="submit">Submit Quiz</button>
+</form>
+------------------------------------------------
+createQuiz.jsp:
+<%@ page import="java.sql.*, com.quizportal.util.DBConnection" %>
+
+
+<form action="../CreateQuizServlet" method="post">
+
+    Quiz Name: <input type="text" name="quizName" required><br>
+
+    <h3>Select Questions:</h3>
+
+    <%  
+        Connection con = DBConnection.getConnection();
+        PreparedStatement ps = con.prepareStatement("SELECT * FROM questions");
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()) {
+    %>
+        <input type="checkbox" name="questionIds" value="<%= rs.getInt("id") %>">
+        <%= rs.getString("question_text") %><br>
+    <% } %>
+
+    <button type="submit">Create Quiz</button>
+</form>
+-----------------------------------------------------------------------------------------------------------------------------dashboard.jsp:
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>Welcome <%= session.getAttribute("user") %></h2>
+<a href="quizList">View Quizzes</a>
+
+</body>
+</html>
+--------------------------------------------------------------------
+login.jsp:
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Quiz Portal</title>
+</head>
+<body>
+    <h2>Login</h2>
+    <form action="/QuizPortal/LoginServlet" method="post">
+        Username: <input type="text" name="username" required><br><br>
+        Password: <input type="password" name="password" required><br><br>
+        <button type="submit">Login</button>
+    </form>
+
+    <hr>
+    <p>New user? <a href="<%= request.getContextPath() %>/views/register.jsp">Register here</a>
+</p>
+</body>
+</html>
+---------------------------------------------------------------------------------------------
+quizlist.jsp:
+<%@ page import="java.sql.*, com.quizportal.util.DBConnection" %>
+<%
+    Connection con = DBConnection.getConnection();
+    PreparedStatement ps = con.prepareStatement("SELECT * FROM quiz");
+    ResultSet rs = ps.executeQuery();
+%>
+
+<h2>Available Quizzes</h2>
+
+<% while(rs.next()) { %>
+    <a href="attemptQuiz.jsp?quizId=<%= rs.getInt("quiz_id") %>">
+        <%= rs.getString("quiz_name") %>
+    </a>
+    <br>
+<% } %>
+---------------------------------------------------------------------------------------
+register.jsp:
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="/QuizPortal/RegisterServlet" method="post">
+  Username: <input type="text" name="username"><br>
+  Email: <input type="email" name="email"><br>
+  Password: <input type="password" name="password"><br>
+  <button type="submit">Register</button>
+</form>
+
+</body>
+</html>
+-------------------------------------------------------------------------------------------------------
+dependencies:pom.xml:
+<dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.1</version>
+      <scope>test</scope>
+       </dependency>
+       
+      <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>8.0.33</version>
+    </dependency>
+      
+<dependency>
+    <groupId>jakarta.servlet</groupId>
+    <artifactId>jakarta.servlet-api</artifactId>
+    <version>5.0.0</version>
+    <scope>provided</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>javax.servlet-api</artifactId>
+    <version>4.0.1</version>
+    <scope>provided</scope>
+</dependency>
+<!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
+
+
+   
+    
+  </dependencies>
+-----------------------------------------
+MySQL:
+CREATE DATABASE quizPortal;
+USE quizPortal;
+CREATE TABLE users (
+  user_id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(100) UNIQUE,
+  role ENUM('ADMIN','USER') DEFAULT 'USER',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE questions (
+  question_id INT AUTO_INCREMENT PRIMARY KEY,
+  question_text TEXT NOT NULL,
+  option_a VARCHAR(255),
+  option_b VARCHAR(255),
+  option_c VARCHAR(255),
+  option_d VARCHAR(255),
+  correct_option CHAR(1) NOT NULL,
+  created_by INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES users(user_id) ON DELETE SET NULL
+);
+
+CREATE TABLE quizzes (
+  quiz_id INT AUTO_INCREMENT PRIMARY KEY,
+  quiz_name VARCHAR(150) NOT NULL,
+  description TEXT,
+  total_questions INT DEFAULT 0,
+  created_by INT,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES users(user_id) ON DELETE SET NULL
+);
+
+CREATE TABLE quiz_questions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  quiz_id INT NOT NULL,
+  question_id INT NOT NULL,
+  question_order INT DEFAULT 0,
+  FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id) ON DELETE CASCADE,
+  FOREIGN KEY (question_id) REFERENCES questions(question_id) ON DELETE CASCADE
+);
+
+CREATE TABLE attempts (
+  attempt_id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT,
+  quiz_id INT,
+  score INT,
+  attempted_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(user_id),
+  FOREIGN KEY (quiz_id) REFERENCES quizzes(quiz_id)
+);
+
+INSERT INTO users (username, password, email, role)
+VALUES ('admin', 'admin123', 'admin@gmail.com', 'ADMIN');
+
+INSERT INTO users (username, password, email, role)
+VALUES ('keerthi', 'keerthi123', 'keerthi@gmail.com', 'USER');
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which keyword is used to inherit a class in Java?', 'this', 'super', 'extends', 'implements', 'C', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which of these is a valid main method signature?', 
+'public static void main(String args)', 
+'public void main(String[] args)', 
+'public static void main(String[] args)', 
+'static public int main(String[] args)', 
+'C', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which memory area stores class-level variables in Java?', 
+'Stack', 'Heap', 'Method Area', 'CPU Register', 
+'C', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which concept allows method overloading and overriding?', 
+'Encapsulation', 'Polymorphism', 'Inheritance', 'Abstraction', 
+'B', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which of the following cannot be achieved using interfaces?', 
+'Multiple inheritance', 'Abstraction', 'Constructor creation', 'Loose coupling', 
+'C', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which interface is used to execute SQL queries in JDBC?', 
+'Statement', 'DriverManager', 'Connection', 'ResultSet', 
+'A', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which method is used to establish database connection?', 
+'getConnection()', 'executeQuery()', 'prepareStatement()', 'createStatement()', 
+'A', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which method is called only once in Servlet life cycle?', 
+'doGet()', 'service()', 'init()', 'destroy()', 
+'C', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which tag is used to print output in JSP?', 
+'<% %>', '<%= %>', '<%! %>', '<%@ %>', 
+'B', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which SQL command is used to remove a table?', 
+'DELETE', 'DROP', 'TRUNCATE', 'REMOVE', 
+'B', 1);
+
+INSERT INTO questions 
+(question_text, option_a, option_b, option_c, option_d, correct_option, created_by)
+VALUES 
+('Which constraint ensures unique values in a column?', 
+'PRIMARY KEY', 'NOT NULL', 'UNIQUE', 'FOREIGN KEY', 
+'C', 1);
+------------------------------------
