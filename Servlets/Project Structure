@@ -1,0 +1,486 @@
+C:.
+│   .classpath
+│   .project
+│   pom.xml
+│
+├───.metadata
+│   │   .lock
+│   │   .lock_info
+│   │   .log
+│   │   version.ini
+│   │
+│   ├───.mylyn
+│   │   │   repositories.xml.zip
+│   │   │
+│   │   └───contexts
+│   └───.plugins
+│       ├───org.eclipse.buildship.core
+│       │   └───gradle
+│       │           versions.json
+│       │
+│       ├───org.eclipse.core.resources
+│       │   ├───.history
+│       │   ├───.projects
+│       │   │   └───.org.eclipse.egit.core.cmp
+│       │   │           .location
+│       │   │
+│       │   ├───.root
+│       │   │   │   1.tree
+│       │   │   │
+│       │   │   └───.indexes
+│       │   │           history.version
+│       │   │           properties.index
+│       │   │           properties.version
+│       │   │
+│       │   └───.safetable
+│       │           org.eclipse.core.resources
+│       │
+│       ├───org.eclipse.core.runtime
+│       │   └───.settings
+│       │           org.eclipse.core.resources.prefs
+│       │           org.eclipse.jdt.core.prefs
+│       │           org.eclipse.jdt.launching.prefs
+│       │           org.eclipse.jdt.ui.prefs
+│       │           org.eclipse.jsch.core.prefs
+│       │           org.eclipse.jst.j2ee.webservice.ui.prefs
+│       │           org.eclipse.m2e.discovery.prefs
+│       │           org.eclipse.mylyn.context.core.prefs
+│       │           org.eclipse.mylyn.monitor.ui.prefs
+│       │           org.eclipse.mylyn.tasks.ui.prefs
+│       │           org.eclipse.ui.ide.prefs
+│       │           org.eclipse.ui.navigator.prefs
+│       │           org.eclipse.ui.prefs
+│       │           org.eclipse.ui.workbench.prefs
+│       │
+│       ├───org.eclipse.debug.core
+│       ├───org.eclipse.e4.workbench
+│       │       workbench.xmi
+│       │
+│       ├───org.eclipse.egit.core
+│       │   └───.org.eclipse.egit.core.cmp
+│       │       │   .project
+│       │       │
+│       │       └───.settings
+│       │               org.eclipse.core.resources.prefs
+│       │
+│       ├───org.eclipse.emf.common.ui
+│       ├───org.eclipse.jdt.core
+│       │       assumedExternalFilesCache
+│       │       externalFilesCache
+│       │       javaLikeNames.txt
+│       │       nonChainingJarsCache
+│       │       variablesAndContainers.dat
+│       │
+│       ├───org.eclipse.jdt.launching
+│       │       .install.xml
+│       │       libraryInfos.xml
+│       │
+│       ├───org.eclipse.jdt.ui
+│       │       OpenTypeHistory.xml
+│       │       QualifiedTypeNameHistory.xml
+│       │
+│       ├───org.eclipse.m2e.core
+│       │       workspaceState.ser
+│       │
+│       ├───org.eclipse.m2e.logback
+│       │       0.log
+│       │       logback.2.7.0.20241001-1350.xml
+│       │
+│       ├───org.eclipse.mylyn.context.core
+│       │   └───contexts
+│       ├───org.eclipse.mylyn.github.ui
+│       │       avatars.ser
+│       │
+│       ├───org.eclipse.mylyn.tasks.ui
+│       ├───org.eclipse.oomph.setup
+│       │       workspace.setup
+│       │
+│       ├───org.eclipse.oomph.setup.ui
+│       ├───org.eclipse.swt
+│       │   └───EBWebView
+│       │       │   CrashpadMetrics-active.pma
+│       │       │   Last Version
+│       │       │   Local State
+│       │       │   Variations
+│       │       │
+│       │       ├───AutoLaunchProtocolsComponent
+│       │       ├───CertificateRevocation
+│       │       ├───component_crx_cache
+│       │       ├───Crashpad
+│       │       │   │   metadata
+│       │       │   │   settings.dat
+│       │       │   │   throttle_store.dat
+│       │       │   │
+│       │       │   ├───attachments
+│       │       │   └───reports
+│       │       ├───Default
+│       │       │   │   BookmarkMergedSurfaceOrdering
+│       │       │   │   BrowsingTopicsSiteData
+│       │       │   │   BrowsingTopicsSiteData-journal
+│       │       │   │   BrowsingTopicsState
+│       │       │   │   DIPS
+│       │       │   │   DIPS-wal
+│       │       │   │   ExtensionActivityComp
+│       │       │   │   ExtensionActivityEdge
+│       │       │   │   ExtensionActivityEdge-journal
+│       │       │   │   Favicons
+│       │       │   │   Favicons-journal
+│       │       │   │   favorites_diagnostic.log
+│       │       │   │   heavy_ad_intervention_opt_out.db
+│       │       │   │   heavy_ad_intervention_opt_out.db-journal
+│       │       │   │   History
+│       │       │   │   History-journal
+│       │       │   │   LOCK
+│       │       │   │   LOG
+│       │       │   │   Login Data
+│       │       │   │   Login Data For Account
+│       │       │   │   Login Data For Account-journal
+│       │       │   │   Login Data-journal
+│       │       │   │   Preferences
+│       │       │   │   README
+│       │       │   │   Secure Preferences
+│       │       │   │   ServerCertificate
+│       │       │   │   ServerCertificate-journal
+│       │       │   │   SharedStorage
+│       │       │   │   Top Sites
+│       │       │   │   Top Sites-journal
+│       │       │   │   Vpn Tokens
+│       │       │   │   Vpn Tokens-journal
+│       │       │   │   Web Data
+│       │       │   │   Web Data-journal
+│       │       │   │
+│       │       │   ├───blob_storage
+│       │       │   │   └───97bd121f-f844-4bab-b688-76723632cc68
+│       │       │   ├───Cache
+│       │       │   │   ├───Cache_Data
+│       │       │   │   └───No_Vary_Search
+│       │       │   ├───ClientCertificates
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │
+│       │       │   ├───Code Cache
+│       │       │   │   ├───js
+│       │       │   │   │   │   index
+│       │       │   │   │   │
+│       │       │   │   │   └───index-dir
+│       │       │   │   │           the-real-index
+│       │       │   │   │
+│       │       │   │   └───wasm
+│       │       │   │       │   index
+│       │       │   │       │
+│       │       │   │       └───index-dir
+│       │       │   │               the-real-index
+│       │       │   │
+│       │       │   ├───commerce_subscription_db
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │
+│       │       │   ├───DawnGraphiteCache
+│       │       │   │       data_0
+│       │       │   │       data_1
+│       │       │   │       data_2
+│       │       │   │       data_3
+│       │       │   │       index
+│       │       │   │
+│       │       │   ├───DawnWebGPUCache
+│       │       │   │       data_0
+│       │       │   │       data_1
+│       │       │   │       data_2
+│       │       │   │       data_3
+│       │       │   │       index
+│       │       │   │
+│       │       │   ├───discounts_db
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │
+│       │       │   ├───discount_infos_db
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │
+│       │       │   ├───EdgeJourneys
+│       │       │   │       EdgeJourneys.db
+│       │       │   │
+│       │       │   ├───Extension Rules
+│       │       │   │       000003.log
+│       │       │   │       CURRENT
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │       MANIFEST-000001
+│       │       │   │
+│       │       │   ├───Extension Scripts
+│       │       │   │       000003.log
+│       │       │   │       CURRENT
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │       MANIFEST-000001
+│       │       │   │
+│       │       │   ├───Extension State
+│       │       │   │       000003.log
+│       │       │   │       CURRENT
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │       MANIFEST-000001
+│       │       │   │
+│       │       │   ├───GPUCache
+│       │       │   │       data_0
+│       │       │   │       data_1
+│       │       │   │       data_2
+│       │       │   │       data_3
+│       │       │   │       index
+│       │       │   │
+│       │       │   ├───Local Storage
+│       │       │   │   └───leveldb
+│       │       │   │           000003.log
+│       │       │   │           CURRENT
+│       │       │   │           LOCK
+│       │       │   │           LOG
+│       │       │   │           MANIFEST-000001
+│       │       │   │
+│       │       │   ├───Network
+│       │       │   │       Cookies
+│       │       │   │       Cookies-journal
+│       │       │   │       Network Persistent State
+│       │       │   │       NetworkDataMigrated
+│       │       │   │       Reporting and NEL
+│       │       │   │       Reporting and NEL-journal
+│       │       │   │       SCT Auditing Pending Reports
+│       │       │   │       Sdch Dictionaries
+│       │       │   │       Trust Tokens
+│       │       │   │       Trust Tokens-journal
+│       │       │   │
+│       │       │   ├───parcel_tracking_db
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │
+│       │       │   ├───PersistentOriginTrials
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │
+│       │       │   ├───Safe Browsing Network
+│       │       │   │       NetworkDataMigrated
+│       │       │   │       Safe Browsing Cookies
+│       │       │   │       Safe Browsing Cookies-journal
+│       │       │   │
+│       │       │   ├───Session Storage
+│       │       │   │       000003.log
+│       │       │   │       CURRENT
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │       MANIFEST-000001
+│       │       │   │
+│       │       │   ├───Sessions
+│       │       │   ├───Shared Dictionary
+│       │       │   │   │   db
+│       │       │   │   │   db-journal
+│       │       │   │   │
+│       │       │   │   └───cache
+│       │       │   │       │   index
+│       │       │   │       │
+│       │       │   │       └───index-dir
+│       │       │   │               the-real-index
+│       │       │   │
+│       │       │   ├───shared_proto_db
+│       │       │   │   │   000003.log
+│       │       │   │   │   CURRENT
+│       │       │   │   │   LOCK
+│       │       │   │   │   LOG
+│       │       │   │   │   MANIFEST-000001
+│       │       │   │   │
+│       │       │   │   └───metadata
+│       │       │   │           000003.log
+│       │       │   │           CURRENT
+│       │       │   │           LOCK
+│       │       │   │           LOG
+│       │       │   │           MANIFEST-000001
+│       │       │   │
+│       │       │   ├───Site Characteristics Database
+│       │       │   │       000003.log
+│       │       │   │       CURRENT
+│       │       │   │       LOCK
+│       │       │   │       LOG
+│       │       │   │       MANIFEST-000001
+│       │       │   │
+│       │       │   └───Sync Data
+│       │       │       └───LevelDB
+│       │       │               000003.log
+│       │       │               CURRENT
+│       │       │               LOCK
+│       │       │               LOG
+│       │       │               MANIFEST-000001
+│       │       │
+│       │       ├───Domain Actions
+│       │       ├───GraphiteDawnCache
+│       │       │       data_0
+│       │       │       data_1
+│       │       │       data_2
+│       │       │       data_3
+│       │       │       index
+│       │       │
+│       │       ├───GrShaderCache
+│       │       │       data_0
+│       │       │       data_1
+│       │       │       data_2
+│       │       │       data_3
+│       │       │       f_000001
+│       │       │       f_000002
+│       │       │       f_000003
+│       │       │       f_000004
+│       │       │       f_000005
+│       │       │       index
+│       │       │
+│       │       ├───hyphen-data
+│       │       ├───MEIPreload
+│       │       ├───OriginTrials
+│       │       ├───PKIMetadata
+│       │       ├───ShaderCache
+│       │       │       data_0
+│       │       │       data_1
+│       │       │       data_2
+│       │       │       data_3
+│       │       │       index
+│       │       │
+│       │       ├───SmartScreen
+│       │       │   ├───local
+│       │       │   │       downloadCache
+│       │       │   │       downloadCache_
+│       │       │   │       uriCache
+│       │       │   │       uriCache_
+│       │       │   │
+│       │       │   └───RemoteData
+│       │       │           customSettings
+│       │       │           customSettings_F95BA787499AB4FA9EFFF472CE383A14
+│       │       │           edgeSettings
+│       │       │           edgeSettings_2.0-a82cb2897a8bf9445d68dcc2be05af89ad4b2fda1fddb2952693be7cd5353ad3
+│       │       │           topTraffic
+│       │       │           topTraffic_638004170464094982
+│       │       │
+│       │       ├───Speech Recognition
+│       │       ├───Subresource Filter
+│       │       │   └───Unindexed Rules
+│       │       ├───Trust Protection Lists
+│       │       ├───TrustTokenKeyCommitments
+│       │       └───WidevineCdm
+│       ├───org.eclipse.tips.ide
+│       │       dialog_settings.xml
+│       │
+│       ├───org.eclipse.tm.terminal.view.ui
+│       ├───org.eclipse.ui.intro
+│       │       introstate
+│       │
+│       ├───org.eclipse.ui.workbench
+│       │       workingsets.xml
+│       │
+│       └───org.eclipse.userstorage.oauth
+├───.mvn
+│       jvm.config
+│       maven.config
+│
+├───.settings
+│       .jsdtscope
+│       org.eclipse.core.resources.prefs
+│       org.eclipse.jdt.core.prefs
+│       org.eclipse.m2e.core.prefs
+│       org.eclipse.wst.common.component
+│       org.eclipse.wst.common.project.facet.core.xml
+│       org.eclipse.wst.jsdt.ui.superType.container
+│       org.eclipse.wst.jsdt.ui.superType.name
+│       org.eclipse.wst.validation.prefs
+│
+├───src
+│   └───main
+│       ├───java
+│       │   └───com
+│       │       └───quizportal
+│       │           ├───dao
+│       │           │       LeaderboardDAO.java
+│       │           │
+│       │           ├───model
+│       │           │       LeaderboardEntry.java
+│       │           │
+│       │           ├───servlet
+│       │           │       CreateQuizServlet.java
+│       │           │       LeaderboardServlet.java
+│       │           │       LoginServlet.java
+│       │           │       QuizListServlet.java
+│       │           │       RegisterServlet.java
+│       │           │       SubmitQuizServlet.java
+│       │           │
+│       │           └───util
+│       │                   DBConnection.java
+│       │
+│       └───webapp
+│           │   index.jsp
+│           │
+│           ├───css
+│           │       attemptQuiz.css
+│           │       createQuiz.css
+│           │       dashboard.css
+│           │       leaderboard.css
+│           │       login.css
+│           │       register.css
+│           │       result.css
+│           │
+│           ├───views
+│           │       adminDashboard.jsp
+│           │       attemptQuiz.jsp
+│           │       createQuiz.jsp
+│           │       dashboard.jsp
+│           │       leaderboard.jsp
+│           │       login.jsp
+│           │       quizList.jsp
+│           │       register.jsp
+│           │       result.jsp
+│           │
+│           └───WEB-INF
+│                   web.xml
+│
+└───target
+    │   QuizPortal.war
+    │
+    ├───classes
+    │   └───com
+    │       └───quizportal
+    │           ├───dao
+    │           │       LeaderboardDAO.class
+    │           │
+    │           ├───model
+    │           │       LeaderboardEntry.class
+    │           │
+    │           ├───servlet
+    │           │       CreateQuizServlet.class
+    │           │       LeaderboardServlet.class
+    │           │       LoginServlet.class
+    │           │       QuizListServlet.class
+    │           │       RegisterServlet.class
+    │           │       SubmitQuizServlet.class
+    │           │
+    │           └───util
+    │                   DBConnection.class
+    │
+    ├───m2e-wtp
+    │   └───web-resources
+    │       └───META-INF
+    │           │   MANIFEST.MF
+    │           │
+    │           └───maven
+    │               └───com.quizportal
+    │                   └───QuizPortal
+    │                           pom.properties
+    │                           pom.xml
+    │
+    ├───maven-archiver
+    │       pom.properties
+    │
+    ├───QuizPortal
+    │   │   index.jsp
+    │   │
+    │   ├───META-INF
+    │   └───WEB-INF
+    │       │   web.xml
+    │       │
+    │       ├───classes
+    │       └───lib
+    │               mysql-connector-j-8.0.33.jar
+    │               protobuf-java-3.21.9.jar
+    │
+    └───test-classes
