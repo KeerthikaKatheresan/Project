@@ -1,0 +1,65 @@
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #e6f0ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.result-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.result-card {
+    background: #007bff;
+    color: white;
+    padding: 40px 50px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    width: 400px;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+.result-card h1 {
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+.result-card .info {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.result-card .score {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+.leader-btn {
+    background: #0056cc;
+    color: white;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.leader-btn:hover {
+    background: #003d99;
+    transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}

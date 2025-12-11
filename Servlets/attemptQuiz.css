@@ -1,0 +1,80 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #eef3fb;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background: #0053b8;
+    color: white;
+    padding: 18px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.quiz-form {
+    width: 80%;
+    margin: 30px auto;
+}
+
+.question-card {
+    background: white;
+    padding: 20px;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.15);
+    border-left: 6px solid #0053b8;
+}
+
+.question-card h3 {
+    margin-top: 0;
+    color: #003e82;
+}
+
+.q-text {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.question-card label {
+    font-size: 16px;
+}
+
+.submit-btn {
+    margin-top: 15px;
+    padding: 8px 15px;
+    background: #0077ff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.submit-btn:hover {
+    background: #005bcc;
+}
+
+.end-test-btn {
+    display: block;
+    width: 200px;
+    margin: 30px auto;
+    padding: 12px;
+    background: #ff3b30;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.end-test-btn:hover {
+    background: #d62822;
+}
+
+
